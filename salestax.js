@@ -24,18 +24,31 @@ var companySalesData = [
 
 function calculateSalesTax(salesData, taxRates) {
   // Implement your code here
-  function add(a,b) {
-    return a+b;
+  for (company in companySalesData){
+    var salesDataIndex = companySalesData[company];
+    // function to add together sales
+    function add(a,b) {
+      return a+b;
+    }
+    var salesSum = salesDataIndex.sales.reduce(add);
+    console.log(salesSum);
+
+
+    var currentTaxRate = function (salesDataIndex){
+      console.log(salesDataIndex.province);
+      return salesTaxRates[salesDataIndex.province];
+    };
+
+    console.log(calculateTax(salesSum, currentTaxRate(salesDataIndex)));
   }
-  var salesSum = companySalesData[0].sales.reduce(add);
-  console.log(salesSum);
-  console.log(calculateTax(salesSum, 0.12));
-  // calculateTax(salesTaxRates.SK, salesSum)
+
+  function calculateTax (sales, taxRate) {
+    return sales * taxRate;
+
+  }
+
 }
 
-function calculateTax (sales, taxRate) {
-  return sales * taxRate;
-}
 
 var results = calculateSalesTax(companySalesData, salesTaxRates);
 // console.log(results);
