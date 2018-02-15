@@ -24,6 +24,8 @@ var companySalesData = [
 
 function calculateSalesTax(salesData, taxRates) {
   // Implement your code here
+
+  //loop going over each company to calculate their total sales, tax
   for (company in companySalesData){
     var salesDataIndex = companySalesData[company];
     // function to add together sales
@@ -31,27 +33,36 @@ function calculateSalesTax(salesData, taxRates) {
       return a+b;
     }
     var salesSum = salesDataIndex.sales.reduce(add);
-    console.log(salesSum);
+    // console.log(salesSum);
 
-
+    //current tax rate
     var currentTaxRate = function (salesDataIndex){
-      console.log(salesDataIndex.province);
+      // console.log(salesDataIndex.province);
       return salesTaxRates[salesDataIndex.province];
     };
+    var name = salesDataIndex.name;
+    var result = {
+      [name]: {
+        "totalSales": salesSum,
+        "totalTaxes": calculateTax(salesSum, currentTaxRate(salesDataIndex))
+      }
 
-    console.log(calculateTax(salesSum, currentTaxRate(salesDataIndex)));
+    };
+    console.log(result);
+    // console.log(calculateTax(salesSum, currentTaxRate(salesDataIndex)));
   }
 
   function calculateTax (sales, taxRate) {
     return sales * taxRate;
 
+  //create object for sales and tax data
   }
 
 }
 
 
 var results = calculateSalesTax(companySalesData, salesTaxRates);
-// console.log(results);
+//console.log(results);
 /* Expected Results:
 {
   Telus: {
